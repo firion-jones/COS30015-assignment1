@@ -1,7 +1,7 @@
 # Makefile for converting Markdown files to PDF
 
 # Source and destination directories
-SRC_DIR = markdown
+SRC_DIR = content
 BUILD_DIR = build
 
 # Find all .md files in the markdown directory
@@ -12,11 +12,11 @@ PDF_FILES := $(patsubst $(SRC_DIR)/%.md,$(BUILD_DIR)/%.pdf,$(MD_FILES))
 
 # Pandoc options with citation support
 PANDOC_OPTS = -V geometry:margin=0.75in -V fontsize=9pt -V papersize=a4 \
-              --resource-path=.:images:markdown \
+              --resource-path=.:images:content \
               --citeproc \
-              --bibliography=references.bib \
-              --csl=harvard-cite-them-right.csl \
-              -H header.tex
+              --bibliography=assets/references.bib \
+              --csl=assets/harvard-cite-them-right.csl \
+              -H assets/header.tex
 
 # Default target
 all: $(PDF_FILES)
@@ -24,8 +24,8 @@ all: $(PDF_FILES)
 # Combined report target
 combined: $(BUILD_DIR)/combined-report.pdf
 
-$(BUILD_DIR)/combined-report.pdf: $(MD_FILES) references.bib harvard-cite-them-right.csl | $(BUILD_DIR)
-	pandoc $(SRC_DIR)/*.md -o $@ $(PANDOC_OPTS) --toc --toc-depth=2
+$(BUILD_DIR)/combined-report.pdf: $(MD_FILES) assets/references.bib assets/harvard-cite-them-right.csl | $(BUILD_DIR)
+	pandoc $(SRC_DIR)/*.md -o $@ $(PANDOC_OPTS)
 
 # Combined report without table of contents (for submission)
 submission: $(BUILD_DIR)/submission-report.pdf
