@@ -15,7 +15,7 @@ PANDOC_OPTS = -V geometry:margin=0.75in -V fontsize=9pt -V papersize=a4 \
               --resource-path=.:images:content \
               --citeproc \
               --bibliography=assets/references.bib \
-              --csl=assets/harvard-cite-them-right.csl \
+              --csl=assets/ieee.csl \
               -H assets/header.tex
 
 # Default target
@@ -24,13 +24,13 @@ all: $(PDF_FILES)
 # Combined report target
 combined: $(BUILD_DIR)/combined-report.pdf
 
-$(BUILD_DIR)/combined-report.pdf: $(MD_FILES) assets/references.bib assets/harvard-cite-them-right.csl | $(BUILD_DIR)
-	pandoc $(SRC_DIR)/*.md -o $@ $(PANDOC_OPTS)
+$(BUILD_DIR)/combined-report.pdf: $(MD_FILES) assets/references.bib assets/ieee.csl | $(BUILD_DIR)
+	pandoc $(SRC_DIR)/*.md -o $@ $(PANDOC_OPTS) --number-sections
 
 # Combined report without table of contents (for submission)
 submission: $(BUILD_DIR)/submission-report.pdf
 
-$(BUILD_DIR)/submission-report.pdf: $(MD_FILES) references.bib harvard-cite-them-right.csl | $(BUILD_DIR)
+$(BUILD_DIR)/submission-report.pdf: $(MD_FILES) references.bib ieee.csl | $(BUILD_DIR)
 	pandoc $(SRC_DIR)/*.md -o $@ $(PANDOC_OPTS)
 
 # Rule to create build directory if it doesn't exist

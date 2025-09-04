@@ -1,56 +1,36 @@
 # Threat Analysis
 
 ## Authentication
-According to the "Annual Cyber Threat Report 2023-2024", the most frequently reported threat in Australia were Authentication attacks in the form of "compromised accounts or credentials"[@acsc2024annual], accounting for nearly one-third of all cybercrime incidents nationwide. This prevalence underscores the critical importance of understanding and mitigating authentication-related threats in the current cybersecurity landscape.
+
+According to the Annual Cyber Threat Report(ACTR) 2023-2024, the most frequently reported threat in Australia were Authentication attacks in the form of "compromised accounts or credentials"[@acsc2024annual], accounting for nearly one-third of all cybercrime incidents nationwide. This prevalence underscores the critical importance of understanding and mitigating authentication-related threats in the current cybersecurity landscape.
 
 Authentication breaches encompass a wide array of attack categories, each exploiting different weaknesses in user and system behavior. The most prominent include **phishing**, which leverages psychological manipulation to trick users into divulging credentials, and **brute force attacks**, where adversaries systematically guess passwords using automated tools. **Password spraying** represents a "low and slow" approach, targeting many accounts with common passwords to evade detection. **Credential stuffing** utilizes previously breached username-password pairs, often sourced from large-scale data leaks, to gain unauthorized access through automation. These categories highlight the multifaceted nature of authentication threats, demonstrating why password-based attacks remain a critical focus for security research and organizational defense.
 
-## **Section 2: Authentication Threats Case Study** (~300 words)
-**Purpose:** Deep analysis of the threat landscape  
-**Subsections:**
+## Threats in the Authentication Landscape
 
-### **2.1 Current Threat Landscape Background** (~100 words)
-**Content:**
-In July 2025, Qantas confirmed that 5.7 million customers were impacted in a cyberattack, demonstrating the ongoing threat to Australian organizations [@abc2025qantas_cyber].
+### Current Threat Landscape
 
-- 2024-2025 statistics on authentication attacks
-- Prevalence in recent breach reports
-- Evolution of attack sophistication
-- Industry sectors most affected
+Authentication threats represent a critical challenge in today’s cybersecurity landscape, both in Australia and globally. The Albanese Government’s commitment of $15–$20 billion through 2033–34 to strengthen cyber domain capabilities underscores the national urgency to address these issues[@acsc2024annual]. In the 2023–24 financial year, the Australian Signals Directorate received over 36,700 calls to its Cyber Security Hotline 12% increase from the previous year, reflecting the growing prevalence of cyber incidents[@acsc2024annual]. Notably, compromised accounts or credentials accounted for **32% of all cybercrime**, making it the leading contributor to reported incidents. On a global scale, Microsoft Entra data reveals that of more than **600 million identity attacks per day**, over **99% are password-based**[@microsoft2024digital]. These statistics highlight the widespread and persistent nature of authentication-related threats, demonstrating why robust authentication mechanisms are essential for organizational and national security.
 
-**Key Stats to Include:**
-- 99% of identity attacks are password attacks (Microsoft)
-- 88% of breaches involve stolen credentials (Verizon)
-- Password reuse statistics
+### Typical Adversary Types
 
-### **2.2 Typical Adversary Tradecraft** (~150 words)
+Authentication attacks are executed through several distinct methods, each exploiting specific vulnerabilities in user behavior and system design.
 
-**Purpose:** Technical analysis of attack methods
+- **Phishing** is a psychological manipulation technique where adversaries impersonate trusted entities, often via email or messaging platforms, to deceive users into revealing their credentials. This method remains highly effective due to its reliance on social engineering rather than technical flaws.
 
-**Content:**
+- **Brute force attacks** involve systematically generating and attempting password combinations until a valid login is achieved. Attackers leverage automated tools to accelerate this process, targeting accounts with weak or commonly used passwords.
 
-- **Brute Force:** Traditional systematic guessing, tools, detectability
-- **Password Spraying:** "Low and slow" methodology, evasion techniques, recent examples
-- **Credential Stuffing:** Leveraging breach data, automation, success factors
-- **Attack Infrastructure:** Tools, botnets, scaling methods
+- **Password spraying** refines brute force tactics by distributing login attempts across many accounts using a shortlist of popular passwords, thereby evading detection mechanisms that monitor for rapid, repeated failures. A notable example is the 2024 Midnight Blizzard incident, where attackers employed password spraying against Microsoft’s infrastructure, prompting significant defensive actions[@microsoft2024midnight_blizzard_blog].
 
-**Technical Details:**
+- **Credential stuffing** utilizes credentials harvested from previous data breaches, exploiting the widespread practice of password reuse across multiple services. The 2022 Optus breach illustrated the impact of this technique, as compromised credentials were repurposed to target other organizations[@abc2022optus_breach]. These methods collectively demonstrate the evolving sophistication and persistence of authentication threats in the modern cyber landscape.
 
-- Specific tools used (Hydra, Hashcat, etc.)
-- Attack timing and patterns
-- Evasion techniques
+### Impact
 
-### **2.3 Organizational Impact** (~50 words)
-**Content:**
+This section starts with how phishing and credential stuffing can be used as good starts
+
+<!-- Breifly discuss the impact phishing attacks can have on a personal and organisation level. -->
 
 The organizational impact of authentication breaches is starkly illustrated by the 2022 Optus incident, which exposed sensitive data of nearly 10 million Australians and triggered widespread concerns over identity theft and fraud [@abc2022optus_breach]. More recently, the Qantas breach in July 2025 affected 5.7 million customers, with varying degrees of personal information compromised [@abc2025qantas_cyber]. Both cases highlight the persistent threat posed by credential stuffing, where attackers leverage previously leaked credentials to infiltrate systems at scale. The consequences include substantial financial losses, operational disruption, and enduring reputational harm, emphasizing the critical need for organizations to strengthen authentication controls and proactively address credential-based threats.
-  
-- Financial costs (cite specific figures)
-- Operational disruption
-- Detection and containment timelines
-- Reputation and compliance implications
-
-**Rubric Alignment:** Addresses "typical adversary trade craft, the potential impact for an organisation"
 
 ---
 
@@ -84,8 +64,10 @@ The organizational impact of authentication breaches is starkly illustrated by t
 ---
 
 ## **Section 4: Research Foundation** (~50 words)
+
 **Purpose:** Bridge to tool selection phase
 **Content:**
+
 - Summary of research methodology
 - Key sources consulted
 - Transition statement to tool comparison phase
@@ -97,26 +79,31 @@ The organizational impact of authentication breaches is starkly illustrated by t
 ## **Structural Notes:**
 
 ### **Writing Style Requirements:**
+
 - Academic tone with IEEE citations
 - Avoid bullet points (use prose paragraphs)
 - Bold key statistics for scannability
 - Logical flow between sections
 
 ### **Citation Strategy:**
+
 - **15-20 sources minimum** (IEEE format)
 - **Primary sources preferred:** Verizon DBIR, Microsoft reports, IBM studies
 - **Current data:** 2024-2025 reports and statistics
 - **Mix of:** Industry reports, academic sources, case studies
 
 ### **Connection Points:**
+
 - **Forward Links:** Sets up tool selection criteria
 - **Backward Links:** References assignment objectives
 - **Framework Prep:** Establishes MITRE/Essential 8 foundation
 
 ### **Assessment Criteria Focus:**
+
 This structure targets **Criteria 1: Planning and Justification** specifically:
+
 - Case study provided
-- Justification with examples  
+- Justification with examples
 - Landscape consultation through reference
 - Modern challenges and relevance addressed
 - Foundation for TTPs and metrics
@@ -126,19 +113,26 @@ This structure targets **Criteria 1: Planning and Justification** specifically:
 ## **Quality Checkpoints:**
 
 ### **Before Writing:**
+
 - [ ] All sections have clear purpose
 - [ ] Word count targets realistic
 - [ ] Rubric requirements mapped
 - [ ] Citation sources identified
 
 ### **During Writing:**
+
 - [ ] Each paragraph advances the argument
 - [ ] Statistics properly cited
 - [ ] Technical depth appropriate
 - [ ] Flow between sections logical
 
 ### **After Writing:**
+
 - [ ] Word count within target (~500)
 - [ ] All citations in IEEE format
 - [ ] No bullet points or lists used
 - [ ] Sets up tool selection phase effectively
+
+### Threat Choice Justification
+
+The selection of authentication attacks as the focal threat for this analysis is driven by their overwhelming prevalence and critical impact on both Australian and global organizations. Recent reports indicate that compromised credentials account for nearly one-third of all cybercrime incidents in Australia, with high-profile breaches such as Optus and Qantas underscoring the real-world consequences of these attacks[@acsc2024annual;@abc2022optus_breach;@abc2025qantas_cyber]. The universal reliance on password-based authentication across industries makes this threat highly relevant and widely applicable. From a technical perspective, authentication attacks such as brute force, password spraying, and credential stuffing offer a rich landscape for analysis, enabling clear success and failure metrics and supporting laboratory-based experimentation. While phishing remains a significant aspect of authentication security due to its effectiveness and prevalence, it is not easily testable in a controlled lab environment and will not be the focus of practical testing in this assignment. Nevertheless, its role in the broader authentication threat landscape will be acknowledged. Furthermore, the threat aligns strongly with established frameworks like MITRE ATT&CK (T1110 family) and Essential 8 mitigations, providing a robust foundation for evaluating defensive strategies and mapping adversary techniques. This combination of prevalence, technical depth, and framework integration makes authentication attacks an ideal subject for comprehensive security analysis.
