@@ -8,68 +8,36 @@
 
 ## Comparison Table
 
-### Hashcat
+## Hashcat
 
-#### Description
+Hashcat is a specialized tool for password-based attacks, focusing on scenarios where the attacker has access to known hash or encrypted data and aims to recover the original password or passphrase. It employs brute force, dictionary, and hybrid attack methods to achieve this goal. Hashcat excels at cracking password hashes across more than 450 supported algorithms[@hashcat], recovering passwords for encrypted file formats, and deciphering offline authentication tokens.
 
-Hashcat is specifically designed for password-based attacks where:
+Hashcat is limited to offline password recovery and cannot break mathematically sound encryption without access to passwords, attack live network services, or exploit flaws in cryptographic implementations. Its strengths lie in unmatched password recovery capabilities, broad algorithm support, and GPU-accelerated performance, making it a specialized tool for cracking password hashes and encrypted files rather than attacking network protocols or cryptographic weaknesses.
 
-Input: Known hash/encrypted data
-Goal: Recover the password/passphrase
-Method: Brute force, dictionary, or hybrid attacks
+Rather than replacing network-based tools such as Hydra. Hashcat focuses on offline attacks against captured password hashes or encrypted files, while Hydra targets live authentication services by attempting to guess credentials in real time. Hashcat operates independently of network access, working in the dark to recover passwords from stored data. Once successful, the recovered credentials can be used to access systems without further brute force attempts.
 
-**Hashcat excels at:**
+### Strengths and Weaknesses
 
-Password hash cracking (300+ algorithms)
-Encrypted file format cracking (where password-protected)
-Offline authentication token cracking
+  **Strengths:**
 
-**Hashcat cannot do:**
+  - Unmatched password recovery capabilities
+  - Supports 450+ password hash algorithms
+  - GPU-accelerated performance for rapid attacks
+  - Effective for encrypted file formats and offline authentication tokens
 
-Break mathematically sound encryption without passwords
-Attack live network services
-Exploit implementation flaws in cryptographic code
+  **Limitations:**
 
-Research Implications for Your Assignment
-This positioning shows hashcat's specific niche in cybersecurity:
-Strengths:
+  - Requires access to password-protected material (hashes, encrypted files)
+  - Cannot break mathematically sound encryption without passwords
+  - Not suitable for attacking live network services
+  - Does not exploit cryptographic implementation flaws
 
-Unmatched password recovery capabilities
-Massive algorithm support for password-based schemes
-GPU-accelerated performance
+### Use Cases
 
-**Limitations:**
+- Cracking password hashes extracted from sources such as Windows "Ntds.dit" or "SAM" files, Linux "/etc/shadow", or other stored hash values supported by Hashcat's extensive algorithm coverage.
+- Recovering lost passwords for encrypted files or authentication tokens
+- Security auditing by testing password strength against known hash sets
 
-Requires pre-existing password-protected material
-Cannot break properly implemented encryption
-Offline-only attack tool
-
-For your tool comparison, this means hashcat complements rather than replaces network-based tools like Hydra. While Hydra attacks live authentication services, hashcat attacks captured password hashes or encrypted files offline.
-
-#### Strengths and Weaknesses
-
-**Strengths:**
-- Unmatched password recovery capabilities
-- Massive algorithm support for password-based schemes
-- GPU-accelerated performance
-
-**Limitations:**
-- Requires pre-existing password-protected material
-- Cannot break properly implemented encryption
-- Offline-only attack tool
-- Public Key Cryptanalysis
-  - RSA
-  - Discrete logarithm
-  - elliptic curve
-- Symmetric encryption
-- Post quantum
-- blockchain
-
-
-#### Use Cases
-
-- Password hashes can be cloned from using a shadow copy of the "Ntds.dit" file. https://blog.netwrix.com/2021/11/30/extracting-password-hashes-from-the-ntds-dit-file/ OR C:\Windows\System32\config\SAM for local users https://www.lsoft.net/posts/what-is-a-sam-file/ OR `/etc/shadow` on linux systems OR any other stored hash values. 
-- Regaining lost passwords
 
 <!-- -------------------------------------------------------------------------------------------- -->
 
