@@ -36,7 +36,6 @@ Rather than replacing network-based tools such as Hydra. Hashcat focuses on offl
 
 - Cracking password hashes extracted from sources such as Windows "Ntds.dit" or "SAM" files, Linux "/etc/shadow", or other stored hash values supported by Hashcat's extensive algorithm coverage.
 - Recovering lost passwords for encrypted files or authentication tokens
-- Security auditing by testing password strength against known hash sets
 
 
 <!-- -------------------------------------------------------------------------------------------- -->
@@ -44,8 +43,74 @@ Rather than replacing network-based tools such as Hydra. Hashcat focuses on offl
 ### Hydra
 
 #### Description
+Primary Function: Network-based password brute force and spraying tool
+Attack Type: Live authentication attacks against network services
+Approach: Online credential testing (vs Hashcat's offline hash cracking)
+Core Capabilities
+Protocol Support (50+ protocols):
+
+Web Services: HTTP(S), HTTP-POST, HTTP-GET forms
+Remote Access: SSH, Telnet, RDP, VNC
+File Services: FTP, SFTP, SMB/CIFS
+Database: MySQL, PostgreSQL, MSSQL, Oracle
+Email: IMAP, POP3, SMTP
+Network: SNMP, LDAP, Cisco protocols
+And many more...
+
+Attack Modes:
+
+Single password against multiple users
+Multiple passwords against single user
+Password spraying (low and slow)
+Credential stuffing with username:password lists
+Custom username/password combinations
 
 #### Strengths and Weaknesses
+
+  **Strengths:**
+
+Tests live authentication systems directly
+Works against any network service
+No hash extraction required
+Immediate feedback on successful credentials
+Can test multiple services simultaneously
+
+Personalized Attack Integration:
+
+Custom wordlist support perfect for your synthetic profiles
+Flexible username/password combination testing
+Can incorporate personal data patterns effectively
+Rate limiting allows realistic password spraying
+
+Versatility:
+
+50+ protocol support covers most authentication scenarios
+HTTP form attacks for modern web applications
+Database and network service testing
+Proxy and anonymization support
+
+  **Limitations:**
+
+Detection and Blocking:
+
+Generates network traffic (easily logged/detected)
+Account lockout policies can halt attacks
+Rate limiting required to avoid detection
+Firewall/IPS systems may block repeated attempts
+
+Performance Constraints:
+
+Network latency affects speed
+Server response time limitations
+Connection limits from target systems
+Account lockout policies force slow attacks
+
+Technical Limitations:
+
+Cannot bypass multi-factor authentication
+Limited against modern authentication (OAuth, SAML)
+Requires network connectivity to target
+May trigger security alerts/responses
 
 #### Use Cases
 
