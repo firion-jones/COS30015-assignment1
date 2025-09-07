@@ -4,9 +4,13 @@
 
 ## Overview of Attacker Tools
 
-<!-- Briefly discuss the tools that will be used and a dot point that summarises each tool -->
+This section examines four prominent authentication attack tools to understand their capabilities, limitations, and practical applications in cybersecurity research. The analysis evaluates both offline password recovery tools (Hashcat, John the Ripper) and online network-based attack tools (Hydra, NetExec), providing a comprehensive overview of the current authentication threat landscape. By comparing these tools across different attack methodologies—from hash cracking to live network authentication testing—this research establishes the foundation for selecting the most appropriate tool for subsequent defensive analysis and laboratoryd
 
 ## Comparison Table
+
+```{=latex}
+\input{content/tables/attack-tools-comparison.tex}
+```
 
 ## Hashcat
 
@@ -37,111 +41,118 @@ Rather than replacing network-based tools such as Hydra. Hashcat focuses on offl
 - Cracking password hashes extracted from sources such as Windows "Ntds.dit" or "SAM" files, Linux "/etc/shadow", or other stored hash values supported by Hashcat's extensive algorithm coverage.
 - Recovering lost passwords for encrypted files or authentication tokens
 
+<!-- -------------------------------------------------------------------------------------------- -->
+
+## Hydra
+
+Hydra is a versatile tool for conducting password-based attacks against live network services. Unlike Hashcat, which focuses on offline password recovery from hashes or encrypted files, Hydra targets active authentication endpoints by systematically testing username and password combinations in real time. It supports more than 50 protocols, including web services (HTTP, HTTPS), remote access (SSH, Telnet, RDP), file sharing (FTP, SMB), databases (MySQL, PostgreSQL), and email (IMAP, SMTP)[@hydra]. Hydra is commonly used for brute force, password spraying, and credential stuffing attacks, providing immediate feedback on successful logins.
+
+For this research, Hydra was chosen over Medusa[@medusa] due to Medusa's lack of recent git commits and lower comparative popularity on GitHub, indicating less active development and community support. Medusa offers functionality comparable to Hydra, with a modular architecture that enables consistent command usage across various protocols. However, its lower popularity and less active development made it a secondary choice for this research.
+
+### Strengths and Weaknesses
+
+**Strengths:**
+
+- Directly tests live authentication systems
+- Supports a wide range of network protocols
+- No need for hash extraction
+- Immediate identification of valid credentials
+- Flexible attack modes (brute force, spraying, credential stuffing)
+- Custom wordlist and username/password combinations
+
+**Limitations:**
+
+- Generates network traffic that can be detected and logged
+- May trigger account lockout or security alerts
+- Network speed and server response time can affect performance
+- Cannot bypass multi-factor authentication or modern protocols (OAuth, SAML)
+- Requires network connectivity to the target
+
+### Use Cases
+
+- Testing the strength of passwords for web applications, remote access, and file sharing services
+- Simulating password spraying attacks to evaluate organizational defenses
+- Assessing exposure to credential stuffing
 
 <!-- -------------------------------------------------------------------------------------------- -->
 
-### Hydra
+## John the Ripper
 
-#### Description
-Primary Function: Network-based password brute force and spraying tool
-Attack Type: Live authentication attacks against network services
-Approach: Online credential testing (vs Hashcat's offline hash cracking)
-Core Capabilities
-Protocol Support (50+ protocols):
+John the Ripper is a foundational password cracking and security auditing tool that established many baseline techniques in the field. As the "original" password cracker[@johntheripper], it operates primarily through offline hash cracking similar to Hashcat, while also offering limited online attack capabilities. John the Ripper exists in two main variants: the classic mode with traditional password cracking algorithms, and the community-enhanced "Jumbo" version that supports over 200 hash formats including Unix/Linux systems, Windows environments, applications, databases, and cryptocurrency wallets[@keychainx2021bitcoin].
 
-Web Services: HTTP(S), HTTP-POST, HTTP-GET forms
-Remote Access: SSH, Telnet, RDP, VNC
-File Services: FTP, SFTP, SMB/CIFS
-Database: MySQL, PostgreSQL, MSSQL, Oracle
-Email: IMAP, POP3, SMTP
-Network: SNMP, LDAP, Cisco protocols
-And many more...
+John the Ripper distinguishes itself through its sophisticated rule engine for password transformations and unique "single mode" that leverages account information to generate targeted password candidates. While it shares offline hash cracking capabilities with Hashcat, John the Ripper's historical significance and educational value make it valuable for understanding classical password cracking techniques, though it operates at significantly slower speeds on modern GPU hardware.
 
-Attack Modes:
+### Strengths and Weaknesses
 
-Single password against multiple users
-Multiple passwords against single user
-Password spraying (low and slow)
-Credential stuffing with username:password lists
-Custom username/password combinations
+**Strengths:**
 
-#### Strengths and Weaknesses
+- Historical significance with established algorithms and techniques
+- Sophisticated rule engine for password transformation
+- Unique single mode using account information for targeted attacks
+- Broad compatibility with older and limited hardware
+- Educational value with well-documented classical algorithms
+- Dual architecture supporting both classic and enhanced modes
 
-  **Strengths:**
+**Limitations:**
 
-Tests live authentication systems directly
-Works against any network service
-No hash extraction required
-Immediate feedback on successful credentials
-Can test multiple services simultaneously
+- Significantly slower GPU performance compared to Hashcat
+- Slower development pace and update cycle
+- More complex configuration than modern tools
+- Less optimized memory efficiency for large-scale attacks
+- Limited online attack capabilities compared to dedicated network tools
 
-Personalized Attack Integration:
+### Use Cases
 
-Custom wordlist support perfect for your synthetic profiles
-Flexible username/password combination testing
-Can incorporate personal data patterns effectively
-Rate limiting allows realistic password spraying
-
-Versatility:
-
-50+ protocol support covers most authentication scenarios
-HTTP form attacks for modern web applications
-Database and network service testing
-Proxy and anonymization support
-
-  **Limitations:**
-
-Detection and Blocking:
-
-Generates network traffic (easily logged/detected)
-Account lockout policies can halt attacks
-Rate limiting required to avoid detection
-Firewall/IPS systems may block repeated attempts
-
-Performance Constraints:
-
-Network latency affects speed
-Server response time limitations
-Connection limits from target systems
-Account lockout policies force slow attacks
-
-Technical Limitations:
-
-Cannot bypass multi-factor authentication
-Limited against modern authentication (OAuth, SAML)
-Requires network connectivity to target
-May trigger security alerts/responses
-
-#### Use Cases
+- Educational environments for learning password cracking fundamentals
+- Legacy system auditing where modern tools may not be compatible
+- Specialized rule-based attacks leveraging account information
+- Cryptocurrency wallet password recovery for older formats
+- Cross-platform password auditing on resource-constrained systems
 
 <!-- -------------------------------------------------------------------------------------------- -->
 
-### John the Ripper
+## NetExec
 
-#### Description
+NetExec is a network penetration testing tool designed to identify security vulnerabilities within enterprise networks by systematically testing credentials across multiple services and protocols. Operating under the philosophy that "you're only as strong as your weakest point," NetExec performs comprehensive credential validation across network infrastructure to locate authentication weaknesses[@netexec]. The tool primarily targets Windows-specific protocols commonly used in enterprise environments, making it particularly effective for Active Directory assessments and post-exploitation activities.
 
-#### Strengths and Weaknesses
+NetExec distinguishes itself from single-protocol tools like Hydra through its multi-protocol approach and specialized Windows/Active Directory focus. While Hydra targets individual services, NetExec provides a comprehensive network-wide assessment capability, automatically testing credentials against discovered services and integrating with tools like BloodHound for attack path visualization[@bloodhound]. This makes it valuable for both initial network reconnaissance and post-compromise lateral movement scenarios.
 
-#### Use Cases
+### Strengths and Weaknesses
 
-<!-- -------------------------------------------------------------------------------------------- -->
+**Strengths:**
 
-### Medusa
+- Supports multiple protocols (SMB, LDAP, WINRM, MSSQL, SSH, FTP, RDP, WMI, NFS)
+- Integrated BloodHound support for network mapping and attack path visualization
+- Automated credential validation across entire network infrastructure
+- Specialized Windows/Active Directory enumeration capabilities
+- Post-exploitation lateral movement through advanced credential attacks
+- Support for pass-the-hash, Kerberos abuse, and LAPS integration
 
-#### Description
+**Limitations:**
 
-#### Strengths and Weaknesses
+- Primarily Windows/Active Directory focused, limiting applicability to Linux-only environments
+- Requires existing network access for post-exploitation activities
+- May trigger security alerts due to multiple authentication attempts
+- Cannot bypass multi-factor authentication or modern OAuth/SAML protocols
+- Dependent on network connectivity and target system availability
 
-#### Use Cases
+### Use Cases
 
-<!-- -------------------------------------------------------------------------------------------- -->
+- Enterprise Active Directory assessment for automating credential validation and security posture evaluation across large Windows networks
+- Post-compromise lateral movement through advanced credential attacks including pass-the-hash and Kerberos abuse
+- Comprehensive domain security validation including delegation detection and Certificate Services enumeration
+- Automated BloodHound data collection for attack path visualization and privilege escalation planning
 
-### Ncrack
+## Attack Tool Selection and Summary
 
-#### Description
+After evaluating the four authentication attack tools, **Hydra** emerged as the most suitable choice for this research assignment. This selection was critical to establish before proceeding to defensive tool analysis, as it provides the foundation for understanding what threats need to be mitigated.
 
-#### Strengths and Weaknesses
+**Hydra** offers the ideal balance of capabilities for this assignment's scope. Its support for over 50 network protocols, real-time authentication testing, and immediate feedback mechanisms make it particularly valuable for understanding live network attack scenarios. The tool's ability to perform brute force, password spraying, and credential stuffing attacks directly aligns with the authentication threat landscape identified in the threat analysis section.
 
-#### Use Cases
+**NetExec** presented fascinating capabilities, particularly its comprehensive Active Directory assessment features and BloodHound integration. However, its scope proved too extensive for this assignment's constraints, encompassing post-exploitation lateral movement and enterprise-wide network reconnaissance that extends beyond focused authentication testing. While an extremely powerful tool for real-world penetration testing, its complexity would have diluted the research focus.
 
-<!-- -------------------------------------------------------------------------------------------- -->
+**Hashcat** demonstrated impressive technical capabilities with its 450+ algorithm support and GPU acceleration. Despite being a foundational tool in password recovery, it lacked the network-based attack vectors I sought to explore in this assignment. Its offline nature, while valuable for hash cracking scenarios, doesn't provide the interactive network authentication testing central to this research.
+
+**John the Ripper**, while historically significant as the original password cracker, unfortunately appeared outdated compared to modern alternatives like Hashcat. Though it retains educational value and offers unique features like its sophisticated rule engine, its slower performance and less active development made it a secondary choice for contemporary security research.
+
+This tool selection process ensured that the subsequent defensive analysis would address the most relevant and practical authentication threats
