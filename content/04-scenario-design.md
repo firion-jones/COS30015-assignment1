@@ -1,6 +1,6 @@
 # Scenario Design
 
-## Victim
+## Defender
 
 A small, up-and-coming web development team fresh out of Swinburne operates with a single Linux server to keep costs low and offer competitive pricing. Without dedicated IT staff, the team members each have varying levels of technical expertise and share basic system administration duties. Their focus on affordability has resulted in limited security measures, exposing the business to risks while they strive to maintain essential services for customer orders and revenue.
 
@@ -28,3 +28,9 @@ A former classmate and friend of the students, feeling betrayed after discoverin
 
 ![Visual representation of scenario](images/scenario-diagram.png)
 
+
+
+
+
+
+\newpage

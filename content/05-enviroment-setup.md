@@ -1,36 +1,46 @@
 # Enviroment Setup
 
-## Assumptions
-- All passwords were sourced from Kali Linux's `rockyou.txt` wordlist, accessed via the `wordlists` command.
-- In real-world scenarios, attackers rarely have a guaranteed password list, but for testing purposes, a known list ensures tool functionality.
-- To maintain focus on tool usage rather than password list generation, `rockyou.txt` was used instead of creating custom lists tailored to user profiles.
-- It is assumed that the attacker knows the usernames, which is plausible within the context of this exercise.
-- The attacker discovered the server's IP address by resolving the domain name, which was publicly shared in a social media post.
+
 
 ## Technical Details
 
-- Due to the strict requirement that this assignment must not be internet-facing and must remain within a virtual environment, I chose not to fully implement the network setup shown in Figure 1. Instead, I placed both the attacker and defender machines on the same virtual network, as emulating the full network would have been unnecessary for the scope of this exercise.
-- The command that I used to select the tools `shuf -n 4 rockyou.txt > user_passwords.txt` for user profiles on the server, and `shuf -n 4 rockyou.txt > db_passwords.txt`(This created a total of 8 potential password combinations). 
+### Passwords
+- A random selection of 500 passwords were sourced. 
+- Kali Linux's `rockyou.txt` password list was used. It can be accessed via the `wordlists` command. 
+- Using an existing password list was done to maintain focus on tool usage rather than password list generation, which easily has enough depth to have a whole seprate report written about it. 
+- In real-world scenarios, attackers rarely have a guaranteed password list, but for testing purposes, a known list ensures tool functionality.
+- I used the `shuf` tool to randomly select passwords for both user profiles and the database on the server. These randomly chosen passwords were then assigned as credentials for the server users and the database.
+- It is assumed that the attacker knows the usernames, which is plausible within the context of this exercise.
 
 ```{=latex}
 \input{content/tables/password-table.tex}
 ```
 
-![Visual representation of scenario](images/virtualnetwork.png)
+### Permissions
+
+- root privileges had to be given to be given to bob's user account to progress past "step 1" of the scenario.
+- bob, jim and harold have been given ```SELECT, INSERT and UPDATE``` permisions.
+- root can only be accessed from a root account, so to access the account the root user password will first need to be discovered. 
+
+### Virtual Network
+- In the scenario, the attacker discovered the server's IP address by resolving the domain name, which was publicly shared in a social media post. This could have been virtually implemented but was not required for the scope of the scenario. 
+- Both machines were placed on the same virtual network to meet the assignment's requirement of a non-internet-facing environment. A diagram that references this can be seen in Figure 2.
+
+
+![Visual representation of scenario](images/virtualnetwork.png){width=4in}
+
+
+
 
 ### Attacker Machine
 
 The attacker machine was chosen for its comprehensive suite of pre-installed security tools, which suited the requirements of this assignment. The only additional configuration involved updating all tools to their latest versions and manually assigning an IP address, as there was no DHCP server available within the virtual network. This setup provided a reliable and ready-to-use environment for conducting the required tests.
 
-```{=latex}
-\input{content/tables/attacker-stats.tex}
-```
 
 ### Defender Machine
 
-I selected Arch Linux for the defender machine because it is the Linux distribution I am most familiar with. Its lightweight nature allowed me to efficiently run the assignment on my laptop, and my experience with its package manager made installing and configuring the necessary tools straightforward. This familiarity ensured a smooth setup process and minimized time spent troubleshooting environment issues.
+I selected Arch Linux for the defender machine because it is the Linux distribution I am most familiar with. Its lightweight nature allowed me to efficiently run the assignment on my laptop, and my experience with its package manager made installing and configuring the necessary tools straightforward. Additionally, using Arch Linux ensured that no defense tools or background services would be operating without my knowledge, giving me full control over the environment. This familiarity ensured a smooth setup process and minimized time spent troubleshooting environment issues.
 
+### Proof of Virtual Network
 
-```{=latex}
-\input{content/tables/defender-stats.tex}
-```
+![Green: IP Addresses, Yellow: Unable to ping google.com, Blue: Attacker pinging the defender machine](images/network-confirmation.png)
