@@ -9,8 +9,9 @@
 - Kali Linux's `rockyou.txt` password list was used. It can be accessed via the `wordlists` command. 
 - Using an existing password list was done to maintain focus on tool usage rather than password list generation, which easily has enough depth to have a whole seprate report written about it. 
 - In real-world scenarios, attackers rarely have a guaranteed password list, but for testing purposes, a known list ensures tool functionality.
-- I used the `shuf` tool to randomly select passwords for both user profiles and the database on the server. These randomly chosen passwords were then assigned as credentials for the server users and the database.
-- It is assumed that the attacker knows the usernames, which is plausible within the context of this exercise.
+- I used the `shuf` tool to randomly select passwords for the user profiles. I then created the users "bob, jim and harold" with the passwords. 
+- Database passwords were made similar to SSH passwords to highlight typical credential reuse, making it easier for attackers to guess passwords across services.
+- It is assumed that the attacker knows the usernames, which is plausible within they were friends in the context of this exercise.
 
 ```{=latex}
 \input{content/tables/password-table.tex}
@@ -44,3 +45,5 @@ I selected Arch Linux for the defender machine because it is the Linux distribut
 ### Proof of Virtual Network
 
 ![Green: IP Addresses, Yellow: Unable to ping google.com, Blue: Attacker pinging the defender machine](images/network-confirmation.png)
+
+\newpage

