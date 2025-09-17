@@ -292,3 +292,5 @@ Suricata could potentially detect Hydra attacks through deep packet inspection t
 ## Defender Tool Selection and Summary
 
 **Fail2ban** was selected as the defensive tool for this assignment because it provides simple, automated protection against brute force authentication attacks like those performed by Hydra. It is lightweight, easy to configure, and works directly with standard Linux logs, making it ideal for small business or single-server environments. Unlike more complex or resource-intensive solutions, Fail2ban offers effective real-time blocking without requiring advanced expertise or additional hardware.
+
+\newpage
