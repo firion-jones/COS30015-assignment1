@@ -6,7 +6,7 @@
 ### Step 1.1
 
 - Began by targeting the MariaDB service (port 3306) using Hydra, with a password list created by sampling "rockyou.txt" and reinserting the captured passwords in random order.
-
+- Credentials were discovered for all for of the profiles. 
   ```
   hydra -L usernames.txt -P ./mysql_attack_passwords.txt 192.168.1.111 mysql
   ```
@@ -130,6 +130,8 @@ This confirms that, under controlled conditions, fail2ban can be bypassed, but t
 
 ![Screen capture of successful brute force in very controlled conditions](images/successful-bypass-of-fail2ban.png)
 
+
+\newpage
 <!-- ## MITRE ATT&CK Mapping
 
 - T1110.001 - Brute Force: Password Guessing

@@ -26,20 +26,24 @@ Authentication attacks are executed through several distinct methods, each explo
 
 ### Impact
 
-This section starts with how phishing and credential stuffing can be used as good starts
-
 <!-- Breifly discuss the impact phishing attacks can have on a personal and organisation level. -->
 
-The organizational impact of authentication breaches is starkly illustrated by the 2022 Optus incident, which exposed sensitive data of nearly 10 million Australians and triggered widespread concerns over identity theft and fraud [@abc2022optus_breach]. More recently, the Qantas breach in July 2025 affected 5.7 million customers, with varying degrees of personal information compromised [@abc2025qantas_cyber]. Both cases highlight the persistent threat posed by credential stuffing, where attackers leverage previously leaked credentials to infiltrate systems at scale. The consequences include substantial financial losses, operational disruption, and enduring reputational harm, emphasizing the critical need for organizations to strengthen authentication controls and proactively address credential-based threats.
-
-
----
+The organizational impact of authentication breaches is illustrated by the 2022 Optus incident, which exposed sensitive data of nearly 10 million Australians and triggered widespread concerns over identity theft and fraud [@abc2022optus_breach]. More recently, the Qantas breach in July 2025 affected 5.7 million customers, with varying degrees of personal information compromised [@abc2025qantas_cyber]. Both cases highlight the persistent threat posed by credential stuffing, where attackers leverage previously leaked credentials to infiltrate systems at scale. The consequences include substantial financial losses, operational disruption, and enduring reputational harm, emphasizing the critical need for organizations to strengthen authentication controls and proactively address credential-based threats.
 
 
 ## Threat Choice Justification
+
+Authentication attacks were selected as the focal threat due to their prevalence and practical testing suitability. Compromised credentials account for nearly one-third of all cybercrime incidents in Australia, with recent breaches like Optus and Qantas demonstrating real-world impact. Authentication attacks offer clear success metrics for laboratory testing and align with established frameworks like MITRE ATT&CK (T1110 family).
+
+While phishing is a significant authentication threat, it is not easily testable in a controlled lab environment and is excluded from practical testing. This research focuses on technically measurable attacks like brute force and password spraying that can be effectively evaluated in a controlled setting.
+
+
+<!-- ## Threat Choice Justification
 
 The selection of authentication attacks as the focal threat for this analysis is driven by their overwhelming prevalence and critical impact on both Australian and global organizations. Recent reports indicate that compromised credentials account for nearly one-third of all cybercrime incidents in Australia, with high-profile breaches such as Optus and Qantas underscoring the real-world consequences of these attacks[@acsc2024annual;@abc2022optus_breach;@abc2025qantas_cyber]. The universal reliance on password-based authentication across industries makes this threat highly relevant and widely applicable. From a technical perspective, authentication attacks such as brute force, password spraying, and credential stuffing offer a rich landscape for analysis, enabling clear success and failure metrics and supporting laboratory-based experimentation. 
 
 While phishing remains a significant aspect of authentication security due to its effectiveness and prevalence, it is not easily testable in a controlled lab environment and will not be the focus of practical testing in this assignment. Nevertheless, its role in the broader authentication threat landscape will be acknowledged. Furthermore, the threat aligns strongly with established frameworks like MITRE ATT&CK (T1110 family)[@mitreT1110], providing a robust foundation for evaluating defensive strategies and mapping adversary techniques. 
 
 This combination of prevalence, technical depth, and framework integration makes authentication attacks an ideal subject for comprehensive security analysis. It will also be interesting to see how easy it is to break into hypothetical systems and gain a practical understanding of how secure my own personal passwords really are.
+
+\newpage -->

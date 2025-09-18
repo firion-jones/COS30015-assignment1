@@ -1,18 +1,19 @@
 \begin{table}[h!]
 \centering
+\footnotesize
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Step} & \textbf{Action} & \textbf{Tool/Method} & \textbf{Target} & \textbf{Result} \\
 \hline
-2.1 & MariaDB Logging Setup & Manual configuration and service restart & MariaDB logging system & \cellcolor{green!20}Success: Authentication failure logging enabled \\
+2.1 & MariaDB Logging Setup & Manual configuration and service restart & N/A & \cellcolor{blue!20}Setup: MariaDB logging configured \\
 \hline
-2.2 & fail2ban Configuration & Manual jail configuration with 3/10min thresholds & SSH and MariaDB services & \cellcolor{green!20}Success: Monitoring jails activated \\
+2.2 & fail2ban Configuration & Manual jail configuration with 3/10min thresholds & N/A & \cellcolor{blue!20}Setup: fail2ban protection enabled \\
 \hline
 2.3a & Initial Defense Test & fail2ban vs Hydra attacks & SSH and MariaDB services & \cellcolor{yellow!20}Mixed: Some passwords found before ban triggered \\
 \hline
-2.3b & SSH Config Restoration & Restore original SSH security settings & SSH service configuration & \cellcolor{green!20}Success: Original security posture restored \\
+2.3b & SSH Config Restoration & Restore original SSH security settings & N/A & \cellcolor{blue!20}Setup: SSH security settings restored \\
 \hline
-2.3c & Final Defense Test & fail2ban vs Hydra with proper SSH config & SSH and MariaDB services & \cellcolor{green!20}Success: All attacks blocked effectively \\
+2.3c & Final Defense Test & fail2ban vs Hydra with proper SSH config & SSH and MariaDB services & \cellcolor{red!20}Attack Failure: All unauthorized access prevented \\
 \hline
 \end{tabularx}
 \caption{Step 2: Defense Implementation Phase Summary}

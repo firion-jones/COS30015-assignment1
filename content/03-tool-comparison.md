@@ -141,7 +141,6 @@ NetExec distinguishes itself from single-protocol tools like Hydra through its m
 - Comprehensive domain security validation including delegation detection and Certificate Services enumeration
 - Automated BloodHound data collection for attack path visualization and privilege escalation planning
 
----
 
 ## Attack Tool Selection and Summary
 
@@ -167,7 +166,6 @@ This tool selection process ensured that the subsequent defensive analysis would
 
 <!-- -------------------------------------------------------------------------------------------- -->
 
-\newpage
 ## Fail2ban
 
 Fail2ban is a UNIX based system (sorry windows), that operates by scanning log files and systemd journals using specified regular expressions (filter-rules) to detect authentication failures and other suspicious activities[@fail2ban_wiki_howitworks]. When failures exceed configured thresholds, fail2ban executes actions to ban the offending sources, typically by updating system firewall rules to reject new connections from those IP addresses for a configurable duration. The system operates through "jails" - configuration units that define which log files to monitor, what patterns constitute failures, and how many attempts within a specified time window trigger bans.
@@ -296,5 +294,3 @@ Suricata could potentially detect Hydra attacks through deep packet inspection t
 ## Defender Tool Selection and Summary
 
 **Fail2ban** was selected as the defensive tool for this assignment because it provides simple, automated protection against brute force authentication attacks like those performed by Hydra. It is lightweight, easy to configure, and works directly with standard Linux logs, making it ideal for small business or single-server environments. Unlike more complex or resource-intensive solutions, Fail2ban offers effective real-time blocking without requiring advanced expertise or additional hardware.
-
-\newpage
