@@ -6,4 +6,7 @@
 - There are many sshd configurations that stand directly in the way of brute force attacks out of the box (MaxAuthTries, MaxStartups, LoginGraceTime, PermitRootLogin, etc...)[@sshd_config_manpage]
 
 
-![](images/network-confirmation.png)
+
+```{=latex}
+\input{content/tables/step1-summary.tex}
+```

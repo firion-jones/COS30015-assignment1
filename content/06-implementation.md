@@ -2,7 +2,8 @@
 
 ## Step 1: The Initial Attack
 
-![Attackers strategy](images/attack-flow.png){width=4in}
+
+### Step 1.1
 
 - Target MariaDB service (port 3306) with a sample of the "rockyou.txt" with the passwords taken out and shuffled back in.
 
@@ -10,19 +11,25 @@
   hydra -L usernames.txt -P ./mysql_attack_passwords.txt 192.168.1.111 mysql
   ```
 
-  ![Hydra successfully accessing all 4 passwords](images/captured-sql-passwords.png){width=4in}
+  ![Hydra successfully accessing all 4 mariadb passwords](images/captured-sql-passwords.png){width=4in}
+
+### Step 1.2
 
 - Used AI to generate a script that would produce similar passwords.
 
-- Execute Hydra brute force attack against SSH service (port 22) on defender machine (192.168.1.111) using the new password list.
+### Step 1.3
 
-![Failed brute force attempt, even with access to the correct password and a small list of 50 passwords.](images/ssh-fail01.png)
+- Execute Hydra brute force attack against SSH service (port 22) on defender machine (192.168.1.111) using the new password list.
 
   ```
   hydra -l bob -P ./bob_passwords_50.txt -t 1 -30 192.168.1.111 ssh
   ```
 
-- For the sake of not failing here I chose to alter the SSH configuration of the ssh service running on the defender machine.
+![Failed brute force attempt, even with access to the correct password and a small list of 50 passwords.](images/ssh-fail01.png){width=4in}
+
+### Step 1.4
+
+- To facilitate testing, the SSH configuration on the defender machine was temporarily modified to allow a higher number of authentication attempts and concurrent sessions:
 
   ```
   #UsePAM yes                 # Commented out to disable, enabled in Arch by default
@@ -35,11 +42,81 @@
   ClientAliveCountMax 0       # Disable automatic disconnections
   ```
 
+### Step 1.5
+
+- Once the SSH configuration was altered on the defender machine finding the passwords was a breeze.
+
+![Hydra successfully finding all bob's ssh password](images/ssh-success.png){width=4in}
+
 ## Step 2: The Retaliation
 
-- Install and configure fail2ban on defender machine with SSH and MySQL jails set to detect repeated authentication failures
-- Configure detection thresholds (3 failed attempts within 10 minutes) and ban duration (10 minutes) to automatically block attacking IP addresses via iptables rules
-- Re-execute identical Hydra attacks from Step 1 to demonstrate fail2ban's ability to detect, log, and block authentication attempts in real-time
+### Step 2.1
+
+- SSH logging was enabled by default, but when Mariadb was installed it weirdly was not. To do this I found the following solution[@mariadb_error_log].
+
+  ```
+
+  sudo nvim /etc/my.cnf.d/logging.cnf         # Created logging config
+
+  [mysqld]                                    # Entered this config
+  log-error = /var/log/mariadb/mariadb.log
+  log-warnings = 2
+  general_log = 1
+  general_log_file = /var/log/mariadb/general.log
+
+  sudo mkdir -p /var/log/mariadb              # Created log directory
+
+  sudo chown mysql:mysql /var/log/mariadb     # Ensured mysql's permissions
+
+  sudo systemctl restart mariadb              # Restart the service
+  ```
+
+### Step 2.2
+
+- When setting up the rules for fail2ban I went for a pretty common config of 3 failed attempts within 10 minutes, and ban duration (10 minutes) to automatically block attacking IP addresses via iptables rules.
+- Here is how it was done:
+
+  ```
+  [DEFAULT]
+  bantime  = 600 #10 minutes in seconds (10 x 60sec)
+  findtime = 600
+  maxretry = 3
+
+  [sshd]
+  enabled = true
+  port    = ssh
+  filter  = sshd
+  logpath = %(sshd_log)s
+  backend = %(sshd_backend)s
+
+  [mysqld-auth]
+  enabled = true
+  port    = 3306
+  filter  = mysqld-auth
+  logpath = /var/log/mariadb/mariadb.log  #Newly created log path
+  ```
+
+- After the service had been restarted I went straight into testing. I used some of the commands below to construct a script that would reset the fail2ban enviroment. 
+
+  ```
+  sudo fail2ban-client unban --all          # Clears the jails
+  sudo fail2ban-client status sshd          # See the status of ssh attempts
+  sudo fail2ban-client status mysqld-auth   # See the status of mariadb attempts
+  ```
+
+### Step 2.3
+
+- After my initial test, I encountered an unexpected outcome as seen in figure 7.
+  - For the blue-highlighted content, fail2ban worked as intended—Hydra was unable to discover the password because the attacking IP was promptly blocked.
+  - However, for the green-highlighted content, although fail2ban did eventually ban the IP, Hydra managed to find the password before the ban took effect. This suggests that the fail2ban response was not fast enough to prevent successful brute force in this scenario.
+- To rectify this result I went back and altered the ssh config to it's original config. 
+
+![Unexpected result from test](images/weird-result.png){width=4in}
+
+- Here is the result after the SSH config had been restored. 
+
+![alt text](images/rectified.png){width=4in}
+
 
 ## Step 3: Spray Attack
 
