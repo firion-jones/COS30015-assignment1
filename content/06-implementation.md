@@ -5,7 +5,7 @@
 
 ### Step 1.1
 
-- Target MariaDB service (port 3306) with a sample of the "rockyou.txt" with the passwords taken out and shuffled back in.
+- Began by targeting the MariaDB service (port 3306) using Hydra, with a password list created by sampling "rockyou.txt" and reinserting the captured passwords in random order.
 
   ```
   hydra -L usernames.txt -P ./mysql_attack_passwords.txt 192.168.1.111 mysql
@@ -14,8 +14,7 @@
   ![Hydra successfully accessing all 4 mariadb passwords](images/captured-sql-passwords.png){width=4in}
 
 ### Step 1.2
-
-- Used AI to generate a script that would produce similar passwords.
+- Used a quick and dirty approach by asking an AI chatbot to generate alternative passwords, speeding up the creation of a realistic password list for the attack.
 
 ### Step 1.3
 
@@ -110,21 +109,28 @@
   - For the blue-highlighted content, fail2ban worked as intended—Hydra was unable to discover the password because the attacking IP was promptly blocked.
   - However, for the green-highlighted content, although fail2ban did eventually ban the IP, Hydra managed to find the password before the ban took effect. This suggests that the fail2ban response was not fast enough to prevent successful brute force in this scenario.
 - To rectify this result I went back and altered the ssh config to it's original config. 
+- Refer to Figure 8 for the result after the SSH configuration was restored.
 
 ![Unexpected result from test](images/weird-result.png){width=4in}
 
-- Here is the result after the SSH config had been restored. 
 
-![alt text](images/rectified.png){width=4in}
+
+![A successful hydra attempt after the original config had been restored.](images/rectified.png){width=4in}
 
 
 ## Step 3: Spray Attack
 
-- Implement password spraying technique using Hydra with common passwords against all user accounts to test fail2ban's effectiveness against distributed attack patterns
-- Attempt to bypass fail2ban protections by varying attack timing and credential combinations to evaluate defensive tool limitations
-- Analyze fail2ban logs, iptables rules, and system authentication logs to determine overall defensive success and identify potential evasion techniques
+This step demonstrates that bypassing fail2ban is possible, though highly impractical. To prove this, I configured fail2ban with a `bantime` and `findtime` of 10 seconds each, while Hydra was throttled to one attempt every 25 seconds, well outside fail2ban’s detection window. 
 
-## MITRE ATT&CK Mapping
+- Green: fail2ban banned attempts as expected, but Hydra’s slow pace avoided triggering further bans.
+- Yellow: Hydra never exceeded one failed attempt per account, staying below fail2ban’s threshold.
+- Blue: Hydra successfully discovered a password from a list of 10, but the process was inefficient.
+
+This confirms that, under controlled conditions, fail2ban can be bypassed, but the effort required makes it an unlikely attack vector.
+
+![Screen capture of successful brute force in very controlled conditions](images/successful-bypass-of-fail2ban.png)
+
+<!-- ## MITRE ATT&CK Mapping
 
 - T1110.001 - Brute Force: Password Guessing
 
@@ -147,4 +153,4 @@
 
 - T1078.003 - Valid Accounts: Local Accounts
   - Using compromised local user credentials for system access
-  - Potential for lateral movement within flat network topology
+  - Potential for lateral movement within flat network topology -->

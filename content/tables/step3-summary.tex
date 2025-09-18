@@ -1,0 +1,20 @@
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Step} & \textbf{Action} & \textbf{Tool/Method} & \textbf{Target} & \textbf{Result} \\
+\hline
+3.1 & fail2ban Reconfiguration & Reduced detection windows for testing & fail2ban detection parameters & \cellcolor{blue!20}Success: 10-second bantime/findtime configured \\
+\hline
+3.2 & Spray Attack Setup & Hydra with 25-second delays & Password list preparation & \cellcolor{blue!20}Success: Attack timing configured to evade detection \\
+\hline
+3.3 & Password Spray Execution & Hydra with controlled timing vs fail2ban & SSH authentication service & \cellcolor{green!20}Success: Password discovered while evading bans \\
+\hline
+3.4 & Evasion Analysis & Manual assessment of bypass effectiveness & Attack efficiency and practicality & \cellcolor{yellow!20}Mixed: Bypass successful but highly impractical \\
+\hline
+3.5 & Defense Evaluation & Compare practical vs theoretical bypass & fail2ban effectiveness assessment & \cellcolor{green!20}Success: Defense proven effective against realistic attacks \\
+\hline
+\end{tabularx}
+\caption{Step 3: Password Spray Attack Phase Summary}
+\label{tab:step3-summary}
+\end{table}

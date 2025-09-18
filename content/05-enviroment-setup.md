@@ -45,5 +45,3 @@ I selected Arch Linux for the defender machine because it is the Linux distribut
 ### Proof of Virtual Network
 
 ![Green: IP Addresses, Yellow: Unable to ping google.com, Blue: Attacker pinging the defender machine](images/network-confirmation.png)
-
-\newpage

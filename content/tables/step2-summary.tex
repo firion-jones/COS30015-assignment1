@@ -1,0 +1,20 @@
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Step} & \textbf{Action} & \textbf{Tool/Method} & \textbf{Target} & \textbf{Result} \\
+\hline
+2.1 & MariaDB Logging Setup & Manual configuration and service restart & MariaDB logging system & \cellcolor{green!20}Success: Authentication failure logging enabled \\
+\hline
+2.2 & fail2ban Configuration & Manual jail configuration with 3/10min thresholds & SSH and MariaDB services & \cellcolor{green!20}Success: Monitoring jails activated \\
+\hline
+2.3a & Initial Defense Test & fail2ban vs Hydra attacks & SSH and MariaDB services & \cellcolor{yellow!20}Mixed: Some passwords found before ban triggered \\
+\hline
+2.3b & SSH Config Restoration & Restore original SSH security settings & SSH service configuration & \cellcolor{green!20}Success: Original security posture restored \\
+\hline
+2.3c & Final Defense Test & fail2ban vs Hydra with proper SSH config & SSH and MariaDB services & \cellcolor{green!20}Success: All attacks blocked effectively \\
+\hline
+\end{tabularx}
+\caption{Step 2: Defense Implementation Phase Summary}
+\label{tab:step2-summary}
+\end{table}

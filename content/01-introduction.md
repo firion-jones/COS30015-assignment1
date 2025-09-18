@@ -1,0 +1,9 @@
+# Introduction
+
+Authentication attacks represent one of the most pervasive and damaging threats in today's cybersecurity landscape. With compromised accounts and credentials accounting for nearly one-third of all cybercrime incidents in Australia, and Microsoft reporting over 600 million identity attacks globally per day—99% of which are password-based—the need for effective defensive strategies has never been more critical.
+
+This report provides a comprehensive analysis of authentication threat vectors and defensive countermeasures through both theoretical examination and practical implementation. The research evaluates prominent attack tools including Hashcat, Hydra, John the Ripper, and NetExec, alongside defensive solutions such as Fail2ban, Wazuh, pfSense, and Suricata. Through systematic tool comparison and selection, this analysis identifies the most relevant technologies for focused security research.
+
+The practical component implements a realistic scenario involving a small web development business under attack, demonstrating real-world authentication vulnerabilities and defensive responses. Using Hydra for credential-based attacks against SSH and MariaDB services, and Fail2ban for automated threat mitigation, this research examines the effectiveness of common defensive measures against systematic password attacks.
+
+The findings contribute to understanding authentication security challenges facing small-to-medium enterprises and provide practical insights into defensive tool deployment and effectiveness. This research aligns with MITRE ATT&CK framework methodologies, offering both academic rigor and practical applicability for cybersecurity professionals.

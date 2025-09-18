@@ -18,7 +18,7 @@ Hashcat is limited to offline password recovery and cannot break mathematically 
 
 Rather than replacing network-based tools such as Hydra. Hashcat focuses on offline attacks against captured password hashes or encrypted files, while Hydra targets live authentication services by attempting to guess credentials in real time. Hashcat operates independently of network access, working in the dark to recover passwords from stored data. Once successful, the recovered credentials can be used to access systems without further brute force attempts.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
   **Strengths:**
 
@@ -32,7 +32,7 @@ Rather than replacing network-based tools such as Hydra. Hashcat focuses on offl
   - Requires access to password-protected material (hashes, encrypted files)
   - Cannot break mathematically sound encryption without passwords
   - Not suitable for attacking live network services
-  - Does not exploit cryptographic implementation flaws
+  - Does not exploit cryptographic implementation flaws -->
 
 ### Use Cases
 
@@ -47,7 +47,7 @@ Hydra is a versatile tool for conducting password-based attacks against live net
 
 For this research, Hydra was chosen over Medusa[@medusa] due to Medusa's lack of recent git commits and lower comparative popularity on GitHub, indicating less active development and community support. Medusa offers functionality comparable to Hydra, with a modular architecture that enables consistent command usage across various protocols. However, its lower popularity and less active development made it a secondary choice for this research.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths:**
 
@@ -64,7 +64,7 @@ For this research, Hydra was chosen over Medusa[@medusa] due to Medusa's lack of
 - May trigger account lockout or security alerts
 - Network speed and server response time can affect performance
 - Cannot bypass multi-factor authentication or modern protocols (OAuth, SAML)
-- Requires network connectivity to the target
+- Requires network connectivity to the target -->
 
 ### Use Cases
 
@@ -80,7 +80,7 @@ John the Ripper is a foundational password cracking and security auditing tool t
 
 John the Ripper distinguishes itself through its sophisticated rule engine for password transformations and unique "single mode" that leverages account information to generate targeted password candidates. While it shares offline hash cracking capabilities with Hashcat, John the Ripper's historical significance and educational value make it valuable for understanding classical password cracking techniques, though it operates at significantly slower speeds on modern GPU hardware.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths:**
 
@@ -97,7 +97,7 @@ John the Ripper distinguishes itself through its sophisticated rule engine for p
 - Slower development pace and update cycle
 - More complex configuration than modern tools
 - Less optimized memory efficiency for large-scale attacks
-- Limited online attack capabilities compared to dedicated network tools
+- Limited online attack capabilities compared to dedicated network tools -->
 
 ### Use Cases
 
@@ -115,7 +115,7 @@ NetExec is a network penetration testing tool designed to identify security vuln
 
 NetExec distinguishes itself from single-protocol tools like Hydra through its multi-protocol approach and specialized Windows/Active Directory focus. While Hydra targets individual services, NetExec provides a comprehensive network-wide assessment capability, automatically testing credentials against discovered services and integrating with tools like BloodHound for attack path visualization[@bloodhound]. This makes it valuable for both initial network reconnaissance and post-compromise lateral movement scenarios.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths:**
 
@@ -132,7 +132,7 @@ NetExec distinguishes itself from single-protocol tools like Hydra through its m
 - Requires existing network access for post-exploitation activities
 - May trigger security alerts due to multiple authentication attempts
 - Cannot bypass multi-factor authentication or modern OAuth/SAML protocols
-- Dependent on network connectivity and target system availability
+- Dependent on network connectivity and target system availability -->
 
 ### Use Cases
 
@@ -140,6 +140,8 @@ NetExec distinguishes itself from single-protocol tools like Hydra through its m
 - Post-compromise lateral movement through advanced credential attacks including pass-the-hash and Kerberos abuse
 - Comprehensive domain security validation including delegation detection and Certificate Services enumeration
 - Automated BloodHound data collection for attack path visualization and privilege escalation planning
+
+---
 
 ## Attack Tool Selection and Summary
 
@@ -164,6 +166,8 @@ This tool selection process ensured that the subsequent defensive analysis would
 ```
 
 <!-- -------------------------------------------------------------------------------------------- -->
+
+\newpage
 ## Fail2ban
 
 Fail2ban is a UNIX based system (sorry windows), that operates by scanning log files and systemd journals using specified regular expressions (filter-rules) to detect authentication failures and other suspicious activities[@fail2ban_wiki_howitworks]. When failures exceed configured thresholds, fail2ban executes actions to ban the offending sources, typically by updating system firewall rules to reject new connections from those IP addresses for a configurable duration. The system operates through "jails" - configuration units that define which log files to monitor, what patterns constitute failures, and how many attempts within a specified time window trigger bans.
@@ -171,7 +175,7 @@ Fail2ban is a UNIX based system (sorry windows), that operates by scanning log f
 Fail2ban comes pre-configured to monitor standard log files for services like SSH and Apache, but can be easily customized to read any log file and detect any error pattern. 
 
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths:**
 
@@ -192,7 +196,7 @@ Fail2ban comes pre-configured to monitor standard log files for services like SS
 - Ineffective against slow, low-threshold attacks designed to evade detection
 - Limited threat intelligence integration for proactive source blocking
 - Potential for bypass through IP rotation or proxy-based attacks
-- Does not have native Windows support
+- Does not have native Windows support -->
 
 ### Hydra Defense
 
@@ -206,7 +210,7 @@ Wazuh is a free and open-source platform that unifies XDR (Extended Detection an
 
 Wazuh's centralized architecture enables enterprise-wide correlation of security events, detecting coordinated attacks that may be missed by isolated systems. By integrating MITRE ATT&CK mapping and threat intelligence, Wazuh identifies complex attack patterns through behavioral analysis and cross-system event relationships. Detected threats trigger automated responses such as firewall updates, security alerts, compliance reporting and other various sets of functionality.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths**
 
@@ -226,7 +230,7 @@ Wazuh's centralized architecture enables enterprise-wide correlation of security
 - Potential for alert overload without proper configuration
 - Dependency on network connectivity and agent deployment
 - Performance considerations with large-scale log processing
-- Limited real-time blocking compared to dedicated prevention tools
+- Limited real-time blocking compared to dedicated prevention tools -->
 
 
 ### Hydra Defense
@@ -237,7 +241,7 @@ Wazuh can help defend against Hydra’s authentication attacks by monitoring sec
 ## pfSense
 pfSense is a FreeBSD-based open-source firewall and router platform designed for network perimeter security[@pfsense]. Acting as a gateway, it proactively filters traffic and blocks threats before they reach internal systems. With integrated threat intelligence, geographic IP filtering, and reputation databases, pfSense can preemptively block known malicious sources. Its connection rate limiting and automated rule enforcement help prevent brute force and high-volume attacks at the network boundary, providing organization-wide protection through real-time traffic analysis.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths**
 
@@ -253,7 +257,7 @@ pfSense is a FreeBSD-based open-source firewall and router platform designed for
 - Requires dedicated hardware or virtual machine resources, increasing infrastructure costs
 - Advanced configuration and management demand significant networking expertise
 - Geographic IP blocking may inadvertently affect legitimate users using VPNs or traveling
-- Performance bottlenecks can occur on lower-spec hardware when handling high traffic volumes
+- Performance bottlenecks can occur on lower-spec hardware when handling high traffic volumes -->
 
 ### Hydra Defense
 
@@ -266,7 +270,7 @@ pfSense can help protect against Hydra attacks by blocking traffic from suspicio
 
 Suricata is a network security tool that inspects data packets in real time to detect threats and suspicious activity. It uses predefined rules and signatures to spot attacks, unusual protocol behavior, and malicious content as traffic passes through the network. Suricata can work passively to monitor and log network activity for later analysis, or actively block threats when deployed inline. Its focus on analyzing network traffic at the packet level allows for quick detection and detailed investigation of attacks that may not show up in standard system logs.
 
-### Strengths and Weaknesses
+<!-- ### Strengths and Weaknesses
 
 **Strengths**
 
@@ -282,7 +286,7 @@ Suricata is a network security tool that inspects data packets in real time to d
 - High resource usage for deep packet inspection can impact performance
 - Needs frequent rule updates to stay effective against new threats
 - Limited visibility into encrypted traffic
-- Potential for false positives without careful configuration
+- Potential for false positives without careful configuration -->
 
 ### Hydra Defense
 

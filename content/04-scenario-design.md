@@ -29,8 +29,15 @@ A former classmate and friend of the students, feeling betrayed after discoverin
 ![Visual representation of scenario](images/scenario-diagram.png)
 
 
+## Success and Failure Criteria
 
+### Attack Success
+- **Success:** Discovery of valid username/password combinations and successful authentication to target services
+- **Failure:** No valid credentials discovered or all attempts blocked by defensive measures
 
+### Defense Success  
+- **Success:** Prevention of unauthorized access through automated IP blocking within configured thresholds
+- **Failure:** Attackers successfully discover credentials and gain system access
 
-
-\newpage
+### Measurement
+Success will be evaluated through credential discovery rates, fail2ban logs, and verification of actual system access versus blocked attempts.
